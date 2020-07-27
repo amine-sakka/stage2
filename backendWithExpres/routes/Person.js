@@ -10,7 +10,7 @@ const {
 }=require('../controllers/Person.js');
 
 //including other resoures routers
-const vehicleRotuer = require('./Vehicle');
+const vehicleRotuer = require('./Vehicle.js');
 //including other resoures routers
 
 
@@ -18,8 +18,9 @@ const vehicleRotuer = require('./Vehicle');
 const router =express.Router();
 // creating the router express router
 
+router.use('/:personId/vehicles',vehicleRotuer) // Re-routing 
 
-//atching route to fucntions
+//atching crude route to fucntions
 router.route('/')
     .get(getPersons)
     .post(createPerson);
@@ -29,7 +30,7 @@ router.route('/:id')
     .put(updatePerson)
     .delete(deletePerson);
 
-router.use('/:personId/vehicles',vehicleRotuer) // Re-routing 
+
 //exporting the router
 module.exports = router;
 //exporting the router

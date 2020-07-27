@@ -1,12 +1,12 @@
-const path = require('path');
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const Vehicle = require('../models/Vehicle');
 
-// @desc      Get all vehicles
+// @desc      Get vehicles 
 // @route     GET /api/v1/vehicles
 // @route     GET /api/v1/persons/:personId/Vehicle
 // @access    Public
+
 exports.getVehicles = asyncHandler( async (req ,res ,next ) =>{
     console.log(req.params);
     if(req.params.personId)
@@ -16,7 +16,7 @@ exports.getVehicles = asyncHandler( async (req ,res ,next ) =>{
         res.status(200)
         .json({
             success:true,
-            msg: "All vehicles",
+            msg: `All vehicles for person :${req.params.personId}`,
             count:vehicles.length,
             data :vehicles,
         });

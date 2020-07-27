@@ -1,5 +1,7 @@
 const express = require('express');
 const Vehicle = require('../models/Vehicle');
+
+
 //bring the func from the controllers
 const {
     getVehicles,
@@ -13,7 +15,7 @@ const {
 
 
 // creating the router express router
-const router =express.Router();
+const router =express.Router({mergeParams:true});
 // creating the router express router
 
 //atching route to fucntions
