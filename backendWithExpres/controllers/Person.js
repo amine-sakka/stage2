@@ -3,7 +3,7 @@ const Person = require('../models/Person');
 const asyncHandler =require('../middleware/async.js') // implmenting dry programing in async handaling to ovide try and catch in every function
 
 // @desc      Get all persons
-// @route     GET /api/v1/persons 
+// @route     GET /api/ v1/persons 
 // @access    Public
 
 exports.getPersons = asyncHandler( async (req ,res ,next ) =>{

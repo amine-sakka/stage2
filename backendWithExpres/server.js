@@ -20,6 +20,7 @@ connectDB();
 
 const vehicleRoutes =require('./routes/Vehicle.js');
 const personRoutes =require('./routes/Person.js');
+const authRoutes =require('./routes/auth.js');
 //bring in the route files
 
 
@@ -51,6 +52,7 @@ app.use(express.static(path.join(__dirname,'public')));
     // mount routes
 app.use('/api/v1/vehicles', vehicleRoutes);// mounting vehicles routes
 app.use('/api/v1/persons', personRoutes);// mounting person routes
+app.use('/api/v1/auth', authRoutes);// mounting auth routes
 app.use(errorHandler);
     //mount routes
 
