@@ -23,7 +23,7 @@ exports.getVehicles = asyncHandler( async (req ,res ,next ) =>{
     }else{
         
     //fetch  all vehicle with select
-    const vehicles =await Vehicle.find(req.query);
+    const vehicles =await Vehicle.find(req.query).populate('person');
     res.status(200)
     .json({
             success:true,

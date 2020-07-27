@@ -10,7 +10,7 @@ exports.getPersons = asyncHandler( async (req ,res ,next ) =>{
     
     console.log(req.params);
     //fetch all data all person with select
-    const persons =await Person.find(req.query);
+    const persons =await Person.find(req.query).populate('vehicles');
     res.status(200)
     .json({
             success:true,
@@ -84,13 +84,14 @@ exports.updatePerson = asyncHandler(async (req ,res ,next ) =>{
 // @access    Private
 exports.deletePerson = asyncHandler(async (req ,res ,next ) =>{
    
-    const person = await Person.findByIdAndDelete(req.params.id);
+    const person = await Person.findById(req.params.id);
     if(!person){
         return(res.status(404).json({
             success:false,
             msg: "not found",
         }));
     }
+    person.remove();
     res.status(200).json({
         success:true,
         msg: `delete person with id :  ${req.params.id}`,

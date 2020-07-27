@@ -40,4 +40,25 @@ const Person = new mongoose.Schema({
 
 
 
+// Cascade delete vehicles when a person is deleted
+Person.pre('remove', async function(next) {
+    console.log(`vehicles being removed with person ${this.id}`);
+    await this.model('Vehicle').deleteMany({
+      person: this.id
+    });
+    next();
+});
+// Cascade delete vehicles when a person is deleted
+
+//Reverse populate with vir
+Person.virtual('vehicles',{
+    localField: 'id',
+    foreignField:'person',
+    ref: 'Vehicle',
+    justOne: true
+});
+//Reverse populate with vir
+
+
+
 module.exports = mongoose.model('Person', Person);
