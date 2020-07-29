@@ -1,6 +1,9 @@
 const express = require('express');
 const Vehicle = require('../models/Vehicle');
 
+//bring in the proctection midlware
+const {protect }=require('../middleware/auth');
+//bring in the proctection midlware
 
 //bring the func from the controllers
 const {
@@ -21,12 +24,12 @@ const router =express.Router({mergeParams:true});
 //atching route to fucntions
 router.route('/')
     .get(getVehicles)
-    .post(createVehicle);
+    .post(protect,createVehicle); // protect rout just add protect as param ok
 
 router.route('/:id')
     .get(getVehicle)
-    .put(updateVehicle)
-    .delete(deleteVehicle);
+    .put(protect,updateVehicle)
+    .delete(protect,deleteVehicle);
 
 //atching route to fucntions
 

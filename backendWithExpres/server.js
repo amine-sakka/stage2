@@ -2,7 +2,7 @@ const colors = require('colors');
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const errorHandler=require('./middleware/error.js');
+//const errorHandler=require('./middleware/error.js');
 const fileupload = require('express-fileupload');
 const path = require('path');
 //loading env vars
@@ -21,6 +21,7 @@ connectDB();
 const vehicleRoutes =require('./routes/Vehicle.js');
 const personRoutes =require('./routes/Person.js');
 const authRoutes =require('./routes/auth.js');
+const users = require('./routes/user');
 //bring in the route files
 
 
@@ -53,7 +54,8 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use('/api/v1/vehicles', vehicleRoutes);// mounting vehicles routes
 app.use('/api/v1/persons', personRoutes);// mounting person routes
 app.use('/api/v1/auth', authRoutes);// mounting auth routes
-app.use(errorHandler);
+app.use('/api/v1/users', users); // mounting user routes
+//app.use(errorHandler);
     //mount routes
 
 const PORT = process.env.PORT || 5000;

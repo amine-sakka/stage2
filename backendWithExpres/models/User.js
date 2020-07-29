@@ -45,7 +45,6 @@ User.pre('save', async function(next) {
     const salt = await bcrypt.genSalt(8);
     this.password = await bcrypt.hash(this.password, salt);
   });
-
 // Encrypt passwrod using bcrypt
 
 // Sign JWT and return
@@ -56,5 +55,10 @@ User.methods.getSignedJwtToken = function() {
   };
 // Sign JWT and return
 
+// Match user eneterd password to hashed password in database
+User.methods.matchPassword = async function(enteredPassword) {
+  //campering the hash of the enterd password to one in database
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 //export
 module.exports = mongoose.model('User', User);

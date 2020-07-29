@@ -4,7 +4,7 @@ const Vehicle = require('../models/Vehicle');
 
 // @desc      Get vehicles 
 // @route     GET /api/v1/vehicles
-// @route     GET /api/v1/persons/:personId/Vehicle
+// @route     GET /api/v1/persons/:personId/Vehicles
 // @access    Public
 
 exports.getVehicles = asyncHandler( async (req ,res ,next ) =>{
@@ -38,7 +38,7 @@ exports.getVehicles = asyncHandler( async (req ,res ,next ) =>{
 // @route     GET /api/v1/vehicles/:id
 // @access    Public
 exports.getVehicle =asyncHandler(async (req ,res ,next ) =>{
-    const vehicle = await Vehicle.findById(req.params.id); //find one vehicle by id 
+    const vehicle = await Vehicle.findById(req.params.id).populate('person'); //find one vehicle by id 
     if(!vehicle){
         return(
             next(new ErrorResponse(`vehicle  with id of ${req.params.id} not found`,404))

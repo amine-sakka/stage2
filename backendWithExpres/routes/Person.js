@@ -1,5 +1,8 @@
 const express = require('express');
 const Person = require('../models/Person');
+//bring in the proctection & authorization midlware
+const {protect,authorize }=require('../middleware/auth');
+//bring in the proctection & authorization midlware
 
 const {
     getPersons,
@@ -22,14 +25,13 @@ router.use('/:personId/vehicles',vehicleRotuer) // Re-routing
 
 //atching crude route to fucntions
 router.route('/')
-    .get(getPersons)
-    .post(createPerson);
+    .get(protect,getPersons)
+    .post(protect,authorize("admin"),createPerson);
 
 router.route('/:id')
-    .get(getPerson)
-    .put(updatePerson)
-    .delete(deletePerson);
-
+    .get(protect,getPerson)
+    .put(protect,authorize("admin"),updatePerson)
+    .delete(protect,authorize("admin"),deletePerson);
 
 //exporting the router
 module.exports = router;
