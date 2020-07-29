@@ -22,14 +22,24 @@ const router =express.Router({mergeParams:true});
 // creating the router express router
 
 //atching route to fucntions
-router.route('/')
-    .get(getVehicles)
-    .post(protect,createVehicle); // protect rout just add protect as param ok
+/**
+ * @swagger
+ * /vehicle:
+ *    get:
+ *      description: Use to return all Vehicles
+ *    parameters:
+ *      - name: vehicle
+ * 
+ *    responses:
+ *      '200':
+ *        description: ok
+ */
+router.route('/').get(getVehicles);
+router.route('/').post(protect,createVehicle); 
 
-router.route('/:id')
-    .get(getVehicle)
-    .put(protect,updateVehicle)
-    .delete(protect,deleteVehicle);
+router.route('/:id').get(getVehicle);
+router.route('/:id').put(protect,updateVehicle);
+router.route('/:id').delete(protect,deleteVehicle);
 
 //atching route to fucntions
 

@@ -2,6 +2,10 @@ const colors = require('colors');
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+//swager stuff
+const swaggerJsDoc =require("swagger-jsdoc");
+const swaggerUi =require("swagger-ui-express");
+//swager stuff
 //const errorHandler=require('./middleware/error.js');
 const fileupload = require('express-fileupload');
 const path = require('path');
@@ -31,7 +35,28 @@ const app =express();
     //body parser
 app.use(express.json());
     //body parser
+    
+    //configur swager
 
+const swaggerOptions = {
+        swaggerDefinition: {
+          info: {
+            version: "1.0.0",
+            title: "Backend",
+            description: "backend mte3 stage",
+            contact: {
+              name: "sakka"
+            },
+            servers: ["http://localhost:5000"]
+          }
+        },
+        // routes
+    apis: ['./routes/*.js']
+}; 
+    
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+    //configur swager
 
     // dev lgging middleware
 if(process.env.NODE_ENV==='development'){
@@ -51,6 +76,7 @@ app.use(express.static(path.join(__dirname,'public')));
     //set static folder
 
     // mount routes
+app.use("/api/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs)); //mounting our swager ui route
 app.use('/api/v1/vehicles', vehicleRoutes);// mounting vehicles routes
 app.use('/api/v1/persons', personRoutes);// mounting person routes
 app.use('/api/v1/auth', authRoutes);// mounting auth routes
