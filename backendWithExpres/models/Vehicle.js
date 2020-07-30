@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
+/**
+ * @swagger
+ * tags:
+ *   name: Vehicles
+ *   description:
+ */
 
 const Vehicle = new mongoose.Schema(
 {
