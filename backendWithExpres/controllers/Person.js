@@ -10,7 +10,7 @@ exports.getPersons = asyncHandler( async (req ,res ,next ) =>{
     
     console.log(req.params);
     //fetch all data all person with select
-    const persons =await Person.find(req.query).populate('vehicles');
+    const persons =await Person.find(req.query).populate('vehicles');;
     res.status(200)
     .json({
             success:true,
@@ -25,7 +25,7 @@ exports.getPersons = asyncHandler( async (req ,res ,next ) =>{
 // @route     GET /api/v1/persons/:id
 // @access    Public
 exports.getPerson =asyncHandler(async (req ,res ,next ) =>{
-    const person = await Person.findById(req.params.id); //find one bootcamp by id 
+    const person = await Person.findById(req.params.id).populate('vehicles'); //find one bootcamp by id 
     if(!person){
         return(
             next(new ErrorResponse(`person with id : ${req.params.id} not found`,404))

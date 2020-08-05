@@ -21,11 +21,11 @@ connectDB();
 //connecting to db
 
 //bring in the route files
-
 const vehicleRoutes =require('./routes/Vehicle.js');
 const personRoutes =require('./routes/Person.js');
 const authRoutes =require('./routes/auth.js');
 const users = require('./routes/user');
+const crimeRoutes = require('./routes/crime');
 //bring in the route files
 
 
@@ -81,6 +81,7 @@ app.use('/api/v1/vehicles', vehicleRoutes);// mounting vehicles routes
 app.use('/api/v1/persons', personRoutes);// mounting person routes
 app.use('/api/v1/auth', authRoutes);// mounting auth routes
 app.use('/api/v1/users', users); // mounting user routes
+app.use('/api/v1/crimes', crimeRoutes); // mounting crimes routes
 //app.use(errorHandler);
     //mount routes
 

@@ -10,7 +10,7 @@ exports.getUsers = asyncHandler( async (req ,res ,next ) =>{
     
     console.log(req.params);
     //fetch all data all person with select
-    const users =await User.find(req.query).populate('vehicles');
+    const users =await User.find(req.query);
     res.status(200)
     .json({
             success:true,

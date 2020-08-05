@@ -52,9 +52,9 @@ Person.pre('remove', async function(next) {
 
 //Reverse populate with vir
 Person.virtual('vehicles',{
-    localField: 'id',
-    foreignField:'person',
     ref: 'Vehicle',
+    localField: '_id',
+    foreignField:'person',
     justOne: true
 });
 //Reverse populate with vir

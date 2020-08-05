@@ -8,6 +8,7 @@ dotenv.config({ path: './config/config.evn' });
 const Person = require('./models/Person');
 const Vehicle = require('./models/Vehicle');
 const User = require('./models/User');
+const Crime = require('./models/Crime');
 
 mongoose.connect("mongodb://localhost:27017/StageProxym", {
   useNewUrlParser: true,
@@ -27,6 +28,10 @@ const vehicles = JSON.parse(
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/User.json`, 'utf-8')
 );
+const crimes = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/Crimes.json`, 'utf-8')
+);
+
 
 // Import into DB
 const importData = async () => {
@@ -34,6 +39,7 @@ const importData = async () => {
     await Person.create(persons);
     await Vehicle.create(vehicles);
     await User.create(users);
+    await Crime.create(crimes);
 
     console.log('Data Imported...'.green.inverse);
     process.exit();
@@ -48,6 +54,8 @@ const deleteData = async () => {
     await Person.deleteMany();
     await Vehicle.deleteMany();
     await User.deleteMany();
+    await Crime.deleteMany();
+
     console.log('Data Destroyed...'.red.inverse);
     process.exit();
   } catch (err) {

@@ -14,6 +14,7 @@ const {
 
 //including other resoures routers
 const vehicleRotuer = require('./Vehicle.js');
+const crimesRotuer = require('./crime.js');
 //including other resoures routers
 
 
@@ -22,7 +23,7 @@ const router =express.Router();
 // creating the router express router
 
 router.use('/:personId/vehicles',vehicleRotuer) // Re-routing 
-
+router.use('/:personId/crimes',crimesRotuer) // Re-routing  crimes
 //atching crude route to fucntions
 router.route('/')
     .get(protect,getPersons)

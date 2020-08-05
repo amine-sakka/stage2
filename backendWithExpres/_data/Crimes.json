@@ -1,0 +1,19 @@
+[
+    
+    {
+        "description":"something",
+        "fines":"0",
+        "person":"5d713995b721c3bb38c1f5d0"
+    },
+    {
+        "description":"something else",
+        "fines":"10",
+        "person":"5d713995b721c3bb38c1f5d0"
+    },
+    {
+        "description":"bla",
+        "fines":"1à",
+        "person":"5d713a66ec8f2b88b8f830b8"
+    }
+  
+]
