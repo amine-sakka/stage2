@@ -84,7 +84,7 @@ exports.updatePerson = asyncHandler(async (req ,res ,next ) =>{
 // @access    Private
 exports.deletePerson = asyncHandler(async (req ,res ,next ) =>{
    
-    const person = await Person.findById(req.params.id);
+    const person = await Person.findByIdAndDelete(req.params.id);
     if(!person){
         return(res.status(404).json({
             success:false,

@@ -82,8 +82,7 @@ exports.updateCrime = asyncHandler(async (req ,res ,next ) =>{
     
     const crime = await Crime.findByIdAndUpdate(req.params.id,req.body,{
         new : true, //return new data
-        runValidators : trues, // run mongoo s validations god i love mongoos
-
+        runValidators : true, // run mongoo s validations god i love mongoos
     });
     if(!crime){
         return(res.status(404).json({
@@ -103,7 +102,7 @@ exports.updateCrime = asyncHandler(async (req ,res ,next ) =>{
 // @access    Private
 exports.deleteCrime = asyncHandler(async (req ,res ,next ) =>{
    
-    const crime = await Crime.findById(req.params.id);
+    const crime = await Crime.findByIdAndDelete(req.params.id);
     if(!crime){
         return(res.status(404).json({
             success:false,

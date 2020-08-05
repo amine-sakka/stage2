@@ -9,7 +9,6 @@ const Crime = new mongoose.Schema({
     },
     fines:{
         type: String,
-        required: [true, 'Please add a fines'],
         maxlength: [200, 'fines can not be more than 200 characters']
     }, 
     person:{

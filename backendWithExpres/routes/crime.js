@@ -17,11 +17,11 @@ const{get}=require('mongoose');
 const router =express.Router({mergeParams:true});
 // creating the router express router
 
-router.route('/').get(getCrimes);
-router.route('/').post(createCrime);
-router.route('/:id').get(getCrime);
-router.route('/:id').put(updateCrime);
-router.route('/:id').delete(deleteCrime);
+router.route('/').get(protect,getCrimes);
+router.route('/').post(protect,createCrime);
+router.route('/:id').get(protect,getCrime);
+router.route('/:id').put(protect,updateCrime);
+router.route('/:id').delete(protect,deleteCrime);
 
 //exporting the router
 module.exports = router;
