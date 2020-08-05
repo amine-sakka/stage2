@@ -44,7 +44,11 @@ const Person = new mongoose.Schema({
 Person.pre('remove', async function(next) {
     console.log(`vehicles being removed with person ${this.id}`);
     await this.model('Vehicle').deleteMany({
-      person: this.id
+      person: this._id
+    });
+    console.log(`crims being removed with person ${this.id}`);
+    await this.model('Crime').deleteMany({
+      person: this._id
     });
     next();
 });
@@ -53,6 +57,13 @@ Person.pre('remove', async function(next) {
 //Reverse populate with vir
 Person.virtual('vehicles',{
     ref: 'Vehicle',
+    localField: '_id',
+    foreignField:'person',
+    justOne: true
+});
+
+Person.virtual('crimes',{
+    ref: 'Crime',
     localField: '_id',
     foreignField:'person',
     justOne: true
