@@ -4,6 +4,7 @@ const {
   getUser,
   createUser,
   updateUser,
+  userPhotoUpload,
   deleteUser
 } = require('../controllers/User');
 
@@ -25,5 +26,8 @@ router
   .get(protect,authorize("admin"),getUser)
   .put(protect,authorize("admin"),updateUser)
   .delete(protect,authorize("admin"),deleteUser);
+
+
+router.route('/:id/photo').put(protect, authorize('admin'), userPhotoUpload);  
 
 module.exports = router;

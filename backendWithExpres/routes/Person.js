@@ -9,7 +9,9 @@ const {
     getPerson,
     createPerson,
     updatePerson,
+    personPhotoUpload,
     deletePerson,
+
 }=require('../controllers/Person.js');
 
 //including other resoures routers
@@ -34,6 +36,9 @@ router.route('/:id')
     .put(protect,authorize("admin"),updatePerson)
     .delete(protect,authorize("admin"),deletePerson);
 
+
+router.route('/:id/photo').put(protect, authorize('admin'), personPhotoUpload);
+  
 //exporting the router
 module.exports = router;
 //exporting the router

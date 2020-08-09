@@ -17,6 +17,10 @@ const Person = new mongoose.Schema({
     address: {
         type: String,
     },
+    photo: {
+        type: String,
+        default: 'no-photo.jpg'
+    },
     state: {
         type: String,
         

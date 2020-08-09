@@ -1,6 +1,7 @@
 const ErrorResponse =require('../utils/errorResponse.js');
 const Person = require('../models/Person');
 const asyncHandler =require('../middleware/async.js') // implmenting dry programing in async handaling to ovide try and catch in every function
+const path = require('path');
 
 // @desc      Get all persons
 // @route     GET /api/ v1/persons 
@@ -25,7 +26,7 @@ exports.getPersons = asyncHandler( async (req ,res ,next ) =>{
 // @route     GET /api/v1/persons/:id
 // @access    Public
 exports.getPerson =asyncHandler(async (req ,res ,next ) =>{
-    const person = await Person.findById(req.params.id).populate('vehicles').populate('crimes'); //find one bootcamp by id 
+    const person = await Person.findById(req.params.id).populate('vehicles').populate('crimes'); //find one person by id 
     if(!person){
         return(
             next(new ErrorResponse(`person with id : ${req.params.id} not found`,404))
@@ -46,7 +47,7 @@ exports.getPerson =asyncHandler(async (req ,res ,next ) =>{
 exports.createPerson = asyncHandler(async (req ,res ,next ) =>{
    
     //console.log(req.body);
-    const person=await Person.create(req.body); //creating the bootcamp
+    const person=await Person.create(req.body); //creating the person
 
     //201 was created 
     res.status(201).json({
@@ -99,3 +100,60 @@ exports.deletePerson = asyncHandler(async (req ,res ,next ) =>{
     })
 
 });
+
+
+// @desc      Upload photo for person
+// @route     PUT /api/v1/persons/:id/photo
+// @access    Private
+exports.personPhotoUpload = asyncHandler(async (req, res, next) => {
+    const person = await Person.findById(req.params.id);
+   
+    if ( req.user.role !== 'admin') {
+        return next(
+          new ErrorResponse(
+            `User ${req.params.id} is not authorized to update this bootcamp`,401
+          )
+        );
+    }
+    
+
+    if (!req.files) {
+        return next(new ErrorResponse(`Please upload a file`, 404));
+    }
+    // Make sure the image is a photo
+    const file=req.files.file;
+    if (!file.mimetype.startsWith('image')) {
+        return next(new ErrorResponse(`Please upload an image file`, 404));
+    }
+
+    // Check filesize
+    if (file.size > process.env.MAX_FILE_UPLOAD) {
+        return next(
+        new ErrorResponse(
+            `Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`,
+            404
+        )
+    );}
+    // Create  filename
+    file.name = `photo_${person._id}_${person.name}${path.parse(file.name).ext}`;
+
+    console.log(file.name);
+    
+    file.mv(`${process.env.FILE_UPLOAD_PATH}/persons/${file.name}`, async err => {
+        if (err) {
+          console.error(err);
+          return next(new ErrorResponse(`Problem with file upload`, 500));
+        }
+        console.log("id ");
+        console.log(req.params.id);
+        const newPerson =await Person.findByIdAndUpdate(req.params.id,{photo:file.name});
+        console.log(newPerson);
+    
+        return res.status(200).json({
+          success: true,
+          data: newPerson,
+          path:`uploads/persons/${file.name}`
+        });
+    });
+});
+  
